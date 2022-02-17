@@ -45,4 +45,5 @@ update() {
         FIRST_NAME=$(echo "$FETCH" | jq '.message | .first_name')
         USERNAME=$(echo "$FETCH" | jq '.message | .username')
     fi
+    unalias echo
 }
