@@ -39,10 +39,10 @@ update() {
     if [ -n "$FETCH" ]; then
         MSGGER=$(echo "$FETCH" | jq '.message | .from | .id')
         RET_MSG_ID=$(echo "$FETCH" | jq '.message | .message_id')
-        RET_MSG_TEXT=$(echo "$FETCH" | jq '.message | .text')
+        RET_MSG_TEXT=$(echo "$FETCH" | jq -r '.message | .text')
         RET_CHAT_ID=$(echo "$FETCH" | jq '.message | .chat | .id')
-        FIRST_NAME=$(echo "$FETCH" | jq '.message | .first_name')
-        USERNAME=$(echo "$FETCH" | jq '.message | .username')
+        FIRST_NAME=$(echo "$FETCH" | jq -r '.message | .first_name')
+        USERNAME=$(echo "$FETCH" | jq -r '.message | .username')
     fi
 }
 
