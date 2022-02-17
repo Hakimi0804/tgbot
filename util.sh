@@ -37,7 +37,6 @@ update() {
     alias echo='echo -n'
     FETCH=$(curl -s "$API/getUpdates" | jq '.result[]')
     if [ -n "$FETCH" ]; then
-        MSG_CONTENT=$(echo "$FETCH" | jq '.message | .text')
         MSGGER=$(echo "$FETCH" | jq '.message | .from | .id')
         RET_MSG_ID=$(echo "$FETCH" | jq '.message | .message_id')
         RET_MSG_TEXT=$(echo "$FETCH" | jq '.message | .text')
