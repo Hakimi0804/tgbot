@@ -44,7 +44,6 @@ update() {
         FIRST_NAME=$(echo "$FETCH" | jq '.message | .first_name')
         USERNAME=$(echo "$FETCH" | jq '.message | .username')
     fi
-    unalias echo
 }
 
 clear_update() { unset FETCH MSGGER RET_MSG_ID RET_MSG_TEXT RET_CHAT_ID FIRST_NAME USERNAME; }
