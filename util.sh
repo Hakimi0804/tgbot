@@ -34,7 +34,7 @@ tg() {
 }
 
 update() {
-    alias echo='echo -n'
+    echo() { echo='echo -n'; }
     FETCH=$(curl -s "$API/getUpdates" | jq '.result[]')
     if [ -n "$FETCH" ]; then
         MSGGER=$(echo "$FETCH" | jq '.message | .from | .id')
