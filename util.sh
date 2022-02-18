@@ -34,7 +34,6 @@ tg() {
 }
 
 update() {
-    echo() { echo='echo -n'; }
     FETCH=$(curl -s "$API/getUpdates" -d "offset=-1" -d "timeout=60" | jq '.result[]')
     UPDATE_ID=$(echo "$FETCH" | jq '.update_id')
     [ -z "$PREV_UPDATE_ID" ] && PREV_UPDATE_ID=$UPDATE_ID
