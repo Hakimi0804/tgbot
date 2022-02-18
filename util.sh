@@ -18,6 +18,20 @@ tg() {
             local RESULT=$(curl -s "$API/sendMessage" -d "chat_id=$CHAT_ID" -d "text=$MSG")
             SENT_MSG_ID=$(echo "$RESULT" | jq '.result | .message_id')
             ;;
+        --sendmarkdownv2msg)
+            shift
+            local CHAT_ID=$1
+            local MSG=$2
+            local RESULT=$(curl -s "$API/sendMessage" -d "chat_id=$CHAT_ID" -d "parse_mode=MarkdownV2" -d "text=$MSG")
+            SENT_MSG_ID=$(echo "$RESULT" | jq '.result | .message_id')
+            ;;
+        --replymsg)
+            shift
+            local CHAT_ID=$1
+            local MSG_ID=$2
+            local MSG=$3
+            curl -s "$API/sendMessage" -d "chat_id=$CHAT_ID" -d "reply_to_message_id=$MSG_ID" -d "text=$MSG" | jq .
+            ;;
         --delmsg)
             shift
             local CHAT_ID=$1
