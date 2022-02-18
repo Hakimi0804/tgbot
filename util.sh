@@ -35,8 +35,12 @@ tg() {
 
 update() {
     echo() { echo='echo -n'; }
-    FETCH=$(curl -s "$API/getUpdates" | jq '.result[]')
-    if [ -n "$FETCH" ]; then
+    FETCH=$(curl -s "$API/getUpdates" -d "offset=-1" -d "timeout=60" | jq '.result[]')
+    UPDATE_ID=$(echo "$FETCH" | jq '.update_id')
+    [ -z "$PREV_UPDATE_ID" ] && PREV_UPDATE_ID=$UPDATE_ID
+
+    if [ $UPDATE_ID -gt $PREV_UPDATE_ID ]; then
+        PREV_UPDATE_ID=$UPDATE_ID
         MSGGER=$(echo "$FETCH" | jq '.message | .from | .id')
         RET_MSG_ID=$(echo "$FETCH" | jq '.message | .message_id')
         RET_MSG_TEXT=$(echo "$FETCH" | jq -r '.message | .text')
