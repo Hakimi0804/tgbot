@@ -1,8 +1,13 @@
 #!/bin/bash
 
-round(){
-    #usage: round <number> <decimalplaces>
-    #example: round 1.23452
-    #returns: 1.23
-    echo $(printf %.$2f $(echo "scale=$2;(((10^$2)*$1)+0.5)/(10^$2)" | bc));
+round() {
+    # e.g `round 2.3352 2`
+    #            ^~~~~^
+    # $1       Your number
+    #
+    #                   ^
+    # $2    The number of decimal places
+    FLOAT=$1
+    DECIMAL_POINT=$2
+    printf "%.${2:-$DECIMAL_POINT}f" "$FLOAT"
 }
