@@ -29,6 +29,9 @@ while true; do
                 tg --sendmsg "$RET_CHAT_ID" "bruh, did you just entered nonsense, cuz bc ain't happy"
             fi
             ;;
+        t[ea]st[eu]r*mo[ra][er]*p*ro*than*dev)
+            tg --sendsticker "$RET_CHAT_ID" "CAACAgQAAxkBAAED9_FiEMXeRur9aLMvyNnkj02cZew2ggACpAEAAsIupRbTkf08grqV_SME"
+            ;;
     esac
 
     clear_update
