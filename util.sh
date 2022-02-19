@@ -60,5 +60,10 @@ update() {
         RET_CHAT_ID=$(echo "$FETCH" | jq '.message | .chat | .id')
         FIRST_NAME=$(echo "$FETCH" | jq -r '.message | .first_name')
         USERNAME=$(echo "$FETCH" | jq -r '.message | .username')
+
+        # Stickers
+        STICKER_EMOJI=$(echo "$FETCH" | jq -r '.message | .sticker | .emoji')
+        STICKER_FILE_ID=$(echo "$FETCH" | jq '.message | .sticker | .file_id')
+        STICKER_PACK_NAME=$(echo "$FETCH" | jq '.message | .sticker | .set_name')
     fi
 }
