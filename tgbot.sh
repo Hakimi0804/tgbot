@@ -34,6 +34,6 @@ while true; do
             ;;
     esac
 
-    clear_update
+    unset RET_MSG_TEXT
 #    sleep .2
 done

@@ -62,5 +62,3 @@ update() {
         USERNAME=$(echo "$FETCH" | jq -r '.message | .username')
     fi
 }
-
-clear_update() { unset FETCH MSGGER RET_MSG_ID RET_MSG_TEXT RET_CHAT_ID FIRST_NAME USERNAME; }
