@@ -44,6 +44,18 @@ tg() {
             local FILE_ID=$2
             curl "$API/sendSticker" -d "chat_id=$CHAT_ID" -d "sticker=$FILE_ID" | jq .
             ;;
+        --fwdmsg | --cpmsg)
+            shift
+            local FROM=$1
+            local TO=$2
+            local MSG_ID=$3
+            if [ "$1" = "--cpmsg" ]; then
+                local MODE=copyMessage
+            else
+                local MODE=forwardMessage
+            fi
+            curl "$API/$MODE" -d "from_chat_id=$FROM" -d "chat_id=$TO" -d "message_id=$MSG_ID"
+            ;;
     esac
 }
 
