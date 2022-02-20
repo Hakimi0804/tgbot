@@ -4,12 +4,17 @@ source .token.sh
 API="https://api.telegram.org/bot$TOKEN"
 tg() {
     case $1 in
-        --editmsg)
+        --editmsg | --editmarkdownv2msg)
+            local PARAM=$1
             shift
             local CHAT_ID=$1
             local MSG_ID=$2
             local NEW_TEXT=$3
-            curl -s "$API/editMessageText" -d "chat_id=$CHAT_ID" -d "message_id=$MSG_ID" -d "text=$NEW_TEXT" | jq .
+            if [[ "$PARAM" =~ "--editmarkdownv2msg" ]]; then
+                curl -s "$API/editMessageText" -d "chat_id=$CHAT_ID" -d "message_id=$MSG_ID" -d "text=$NEW_TEXT" -d "parse_mode=MarkdownV2" | jq .
+            else
+                curl -s "$API/editMessageText" -d "chat_id=$CHAT_ID" -d "message_id=$MSG_ID" -d "text=$NEW_TEXT" | jq .
+            fi
             ;;
         --sendmsg)
             shift
