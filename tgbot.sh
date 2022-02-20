@@ -29,6 +29,22 @@ while true; do
                 tg --sendmsg "$RET_CHAT_ID" "bruh, did you just entered nonsense, cuz bc ain't happy"
             fi
             ;;
+        '.fwdpost')
+            PREV_POST=$(< "$HOME/.fwdpost_cooldown") || PREV_POST=$(( $(date +%s) - 11 ))
+            if [ "$(( $(date +%s) - PREV_POST ))" -le 10 ]; then
+                tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Wait for 10 secs cooldown plox"
+                unset RET_MSG_TEXT
+                continue
+            fi
+            if [[ " ${FWD_APRROVED_CHAT_ID[*]} " =~ " $RET_CHAT_ID " ]]; then
+                tg --sendmsg "$RET_CHAT_ID" "Sending to @RM6785 ..."
+                tg --cpmsg "$RET_CHAT_ID" "$FWD_TO" "$RET_REPLIED_MSG_ID"
+                tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "Post sent"
+            else
+                tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "You aren't allowed to use this command outside testing group"
+            fi
+            date +%s > "$HOME/.fwdpost_cooldown"
+            ;;
         t[ea]st[eu]r*mo[ra][er]*p*ro*than*dev)
             tg --sendsticker "$RET_CHAT_ID" "CAACAgQAAxkBAAED9_FiEMXeRur9aLMvyNnkj02cZew2ggACpAEAAsIupRbTkf08grqV_SME"
             ;;
