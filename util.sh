@@ -9,7 +9,7 @@ tg() {
             local CHAT_ID=$1
             local MSG_ID=$2
             local NEW_TEXT=$3
-            curl -s "$API/editMessageText" -d "chat_id=$CHAT_ID" -d "message_id=$MESSAGE_ID" "text=$NEW_TEXT" | jq .
+            curl -s "$API/editMessageText" -d "chat_id=$CHAT_ID" -d "message_id=$MSG_ID" -d "text=$NEW_TEXT" | jq .
             ;;
         --sendmsg)
             shift
