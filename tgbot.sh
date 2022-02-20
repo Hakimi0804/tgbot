@@ -12,10 +12,10 @@ while true; do
     echo "$RET_MSG_TEXT"
     case $RET_MSG_TEXT in
         '/test'*)
-            tg --sendmsg "$RET_CHAT_ID" "BOT is running"
+            tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "BOT is running"
             ;;
         '.help'*)
-            tg --sendmsg "$RET_CHAT_ID" "No"
+            tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "No"
             ;;
         '.calc'*)
             TRIMMED="${RET_MSG_TEXT#.calc}"
@@ -24,9 +24,9 @@ while true; do
             #od -c <<< "$CALCED"
             if ! echo "$CALCED" | grep -q 'syntax error'; then
                 ROUNDED=$(round "$CALCED" 3)
-                tg --sendmsg "$RET_CHAT_ID" "$ROUNDED"
+                tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "$ROUNDED"
             else
-                tg --sendmsg "$RET_CHAT_ID" "bruh, did you just entered nonsense, cuz bc ain't happy"
+                tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "bruh, did you just entered nonsense, cuz bc ain't happy"
             fi
             ;;
         '.fwdpost')
@@ -46,7 +46,7 @@ while true; do
             date +%s > "$HOME/.fwdpost_cooldown"
             ;;
         t[ea]st[eu]r*mo[ra][er]*p*ro*than*dev)
-            tg --sendsticker "$RET_CHAT_ID" "CAACAgQAAxkBAAED9_FiEMXeRur9aLMvyNnkj02cZew2ggACpAEAAsIupRbTkf08grqV_SME"
+            tg --replysticker "$RET_CHAT_ID" "CAACAgQAAxkBAAED9_FiEMXeRur9aLMvyNnkj02cZew2ggACpAEAAsIupRbTkf08grqV_SME" "$RET_MSG_ID"
             ;;
     esac
 
