@@ -38,11 +38,17 @@ tg() {
             local MSG_ID=$2
             curl -s "$API/deleteMessage" -d "chat_id=$CHAT_ID" -d "message_id=$MSG_ID" | jq .
             ;;
-        --sendsticker)
+        --sendsticker | --replysticker)
+            local PARAM=$1
             shift
             local CHAT_ID=$1
             local FILE_ID=$2
-            curl "$API/sendSticker" -d "chat_id=$CHAT_ID" -d "sticker=$FILE_ID" | jq .
+            if [[ "$PARAM" =~ "--replysticker" ]]; then
+                local MSG_ID=$3
+                curl "$API/sendSticker" -d "chat_id=$CHAT_ID" -d "sticker=$FILE_ID" -d "reply_to_message_id=$MSG_ID" | jq .
+            else
+                curl "$API/sendSticker" -d "chat_id=$CHAT_ID" -d "sticker=$FILE_ID" | jq .
+            fi
             ;;
         --fwdmsg | --cpmsg)
             local PARAM=$1 # Save this to check for --cpmsg
