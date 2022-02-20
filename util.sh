@@ -65,11 +65,14 @@ update() {
     [ -z "$PREV_UPDATE_ID" ] && PREV_UPDATE_ID=$UPDATE_ID
 
     if [ $UPDATE_ID -gt $PREV_UPDATE_ID ]; then
+        # IDs
         PREV_UPDATE_ID=$UPDATE_ID
-        MSGGER=$(echo "$FETCH" | jq '.message | .from | .id')
         RET_MSG_ID=$(echo "$FETCH" | jq '.message | .message_id')
-        RET_MSG_TEXT=$(echo "$FETCH" | jq -r '.message | .text')
         RET_CHAT_ID=$(echo "$FETCH" | jq '.message | .chat | .id')
+        MSGGER=$(echo "$FETCH" | jq '.message | .from | .id')
+
+        # Strings
+        RET_MSG_TEXT=$(echo "$FETCH" | jq -r '.message | .text')
         FIRST_NAME=$(echo "$FETCH" | jq -r '.message | .first_name')
         USERNAME=$(echo "$FETCH" | jq -r '.message | .username')
 
