@@ -60,6 +60,20 @@ while true; do
             tg --editmarkdownv2msg "$RET_CHAT_ID" "$SENT_MSG_ID" "[Latest stable]($LATEST_STABLE)
 [Latest canary]($CANARY)"
             ;;
+        '.save'*)
+            if [ "$MSGGER" -ne "$BOT_OWNER_ID" ]; then
+                tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Sir bro only the bot owner can use this"
+                unset RET_MSG_TEXT RET_REPLIED_MSG_ID
+                continue
+            elif [ "$RET_REPLIED_MSG_ID" = "null" ]; then
+                tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Reply to a message to save thx"
+                unset RET_MSG_TEXT RET_REPLIED_MSG_ID
+                continue
+            fi
+            tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Plox wait ..."
+            tg --fwdmsg "$RET_CHAT_ID" "$SAVING_GROUP_ID" "$RET_REPLIED_MSG_ID"
+            tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "Message forwarded"
+            ;;
         *[sS]ex*)
             tg --replysticker "$RET_CHAT_ID" "$RET_MSG_ID" "CAACAgUAAxkBAAED-qJiE3HljFCcMMJOY9e12JvDnvk7mAACCAgAAvNoIFQU9d93MQ1XZSME"
             ;;
@@ -68,6 +82,6 @@ while true; do
             ;;
     esac
 
-    unset RET_MSG_TEXT
+    unset RET_MSG_TEXT RET_REPLIED_MSG_ID
 #    sleep .2
 done
