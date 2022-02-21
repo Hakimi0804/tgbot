@@ -49,7 +49,8 @@ tg() {
             local CHAT_ID=$1
             local FILE_ID=$2
             if [[ "$PARAM" =~ "--replysticker" ]]; then
-                local MSG_ID=$3
+                local MSG_ID=$2
+                local FILE_ID=$3
                 curl "$API/sendSticker" -d "chat_id=$CHAT_ID" -d "sticker=$FILE_ID" -d "reply_to_message_id=$MSG_ID" | jq .
             else
                 curl "$API/sendSticker" -d "chat_id=$CHAT_ID" -d "sticker=$FILE_ID" | jq .

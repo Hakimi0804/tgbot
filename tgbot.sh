@@ -46,10 +46,10 @@ while true; do
             date +%s > "$HOME/.fwdpost_cooldown"
             ;;
         *[sS]ex*)
-            tg --replysticker "$RET_CHAT_ID" "CAACAgUAAxkBAAED-qJiE3HljFCcMMJOY9e12JvDnvk7mAACCAgAAvNoIFQU9d93MQ1XZSME" "$RET_MSG_ID"
+            tg --replysticker "$RET_CHAT_ID" "$RET_MSG_ID" "CAACAgUAAxkBAAED-qJiE3HljFCcMMJOY9e12JvDnvk7mAACCAgAAvNoIFQU9d93MQ1XZSME"
             ;;
         *t[ea]st[eu]r*mo[ra][er]*p*ro*than*dev*)
-            tg --replysticker "$RET_CHAT_ID" "CAACAgQAAxkBAAED9_FiEMXeRur9aLMvyNnkj02cZew2ggACpAEAAsIupRbTkf08grqV_SME" "$RET_MSG_ID"
+            tg --replysticker "$RET_CHAT_ID" "$RET_MSG_ID" "CAACAgQAAxkBAAED9_FiEMXeRur9aLMvyNnkj02cZew2ggACpAEAAsIupRbTkf08grqV_SME"
             ;;
     esac
 
