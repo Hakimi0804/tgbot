@@ -45,6 +45,21 @@ while true; do
             fi
             date +%s > "$HOME/.fwdpost_cooldown"
             ;;
+        '.magisk'*)
+            tg --sendmsg "$RET_CHAT_ID" "Fetching latest Magisk stable"
+            LATEST_STABLE=$(
+                curl -s https://api.github.com/repos/topjohnwu/Magisk/releases/latest \
+                    | grep "Magisk-v**.*.apk" \
+                    | cut -d : -f 2,3 \
+                    | tr -d \" \
+                    | cut -d, -f2 \
+                    | tr -d '\n' \
+                    | tr -d ' '
+            )
+            CANARY="https://raw.githubusercontent.com/topjohnwu/magisk-files/canary/app-debug.apk"
+            tg --editmarkdownv2msg "$RET_CHAT_ID" "$SENT_MSG_ID" "[Latest stable]($LATEST_STABLE)
+[Latest canary]($CANARY)"
+            ;;
         *[sS]ex*)
             tg --replysticker "$RET_CHAT_ID" "$RET_MSG_ID" "CAACAgUAAxkBAAED-qJiE3HljFCcMMJOY9e12JvDnvk7mAACCAgAAvNoIFQU9d93MQ1XZSME"
             ;;
