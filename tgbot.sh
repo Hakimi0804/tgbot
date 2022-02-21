@@ -45,7 +45,10 @@ while true; do
             fi
             date +%s > "$HOME/.fwdpost_cooldown"
             ;;
-        t[ea]st[eu]r*mo[ra][er]*p*ro*than*dev)
+        *[sS]ex*)
+            tg --replysticker "$RET_CHAT_ID" "CAACAgUAAxkBAAED-qJiE3HljFCcMMJOY9e12JvDnvk7mAACCAgAAvNoIFQU9d93MQ1XZSME" "$RET_MSG_ID"
+            ;;
+        *t[ea]st[eu]r*mo[ra][er]*p*ro*than*dev*)
             tg --replysticker "$RET_CHAT_ID" "CAACAgQAAxkBAAED9_FiEMXeRur9aLMvyNnkj02cZew2ggACpAEAAsIupRbTkf08grqV_SME" "$RET_MSG_ID"
             ;;
     esac
