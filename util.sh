@@ -35,7 +35,8 @@ tg() {
             local CHAT_ID=$1
             local MSG_ID=$2
             local MSG=$3
-            curl -s "$API/sendMessage" -d "chat_id=$CHAT_ID" -d "reply_to_message_id=$MSG_ID" -d "text=$MSG" | jq .
+            local RESULT=$(curl -s "$API/sendMessage" -d "chat_id=$CHAT_ID" -d "reply_to_message_id=$MSG_ID" -d "text=$MSG" | jq .)
+            SENT_MSG_ID=$(echo "$RESULT" | jq '.result | .message_id')
             ;;
         --delmsg)
             shift
