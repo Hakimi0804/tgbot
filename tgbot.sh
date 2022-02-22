@@ -48,16 +48,30 @@ while true; do
             if [ "$(( $(date +%s) - PREV_POST ))" -le 10 ]; then
                 tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Wait for 10 secs cooldown plox"
                 unset RET_MSG_TEXT
-                continue
-            fi
-            if [[ " ${FWD_APRROVED_CHAT_ID[*]} " =~ " $RET_CHAT_ID " ]]; then
+            elif [ "$RET_REPLIED_MSG_ID" = "null" ]; then
+                tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Reply to a message to post plox"
+            elif [[ " ${FWD_APRROVED_CHAT_ID[*]} " =~ " $RET_CHAT_ID " ]]; then
                 tg --sendmsg "$RET_CHAT_ID" "Sending to @RM6785 ..."
                 tg --cpmsg "$RET_CHAT_ID" "$FWD_TO" "$RET_REPLIED_MSG_ID"
                 tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "Post sent"
+                date +%s > "$HOME/.fwdpost_cooldown"
             else
                 tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "You aren't allowed to use this command outside testing group"
             fi
-            date +%s > "$HOME/.fwdpost_cooldown"
+            ;;
+        '.postupdatesticker')
+            PREV_STICKER=$(< "$HOME/.stickerpost_cooldown") || PREV_POST=$(( $(date +%s) - 11 ))
+            if [ "$(( $(date +%s) - PREV_POST ))" -le 10 ]; then
+                tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Wait for 10 secs cooldown plox"
+                unset RET_MSG_TEXT
+            elif [[ " ${FWD_APRROVED_CHAT_ID[*]} " =~ " $RET_CHAT_ID " ]]; then
+                tg --sendmsg "$RET_CHAT_ID" "Sending to @RM6785 ..."
+                tg --sendsticker "$FWD_TO" "$RM6785_UPDATE_STICKER"
+                tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "Sticker sent"
+                date +%s > "$HOME/.stickerpost_cooldown"
+            else
+                tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "You aren't allowed to use this command outside testing group"
+            fi
             ;;
 
         ## Restricted to bot owner
