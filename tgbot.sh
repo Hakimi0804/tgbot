@@ -10,7 +10,8 @@ while true; do
     update
 
     echo "$RET_MSG_TEXT"
-    case $RET_MSG_TEXT in
+    RET_LOWERED_MSG_TEXT=$(tr '[:upper:]' '[:lower:]' <<< "$RET_MSG_TEXT")
+    case $RET_LOWERED_MSG_TEXT in
         ## Not so useful
         '/test'*) tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "BOT is running";;
         '.help'*)
@@ -96,7 +97,7 @@ while true; do
             ;;
 
         ## Funs / Miscs
-        *[sS]ex*) tg --replysticker "$RET_CHAT_ID" "$RET_MSG_ID" "CAACAgUAAxkBAAED-qJiE3HljFCcMMJOY9e12JvDnvk7mAACCAgAAvNoIFQU9d93MQ1XZSME";;
+        *sex*) tg --replysticker "$RET_CHAT_ID" "$RET_MSG_ID" "CAACAgUAAxkBAAED-qJiE3HljFCcMMJOY9e12JvDnvk7mAACCAgAAvNoIFQU9d93MQ1XZSME";;
         *t[ea]st[eu]r*mo[ra][er]*p*ro*than*dev*) tg --replysticker "$RET_CHAT_ID" "$RET_MSG_ID" "CAACAgQAAxkBAAED9_FiEMXeRur9aLMvyNnkj02cZew2ggACpAEAAsIupRbTkf08grqV_SME";;
     esac
 
