@@ -105,7 +105,7 @@ update() {
 
         # Stickers
         STICKER_EMOJI=$(echo "$FETCH" | jq -r '.message | .sticker | .emoji')
-        STICKER_FILE_ID=$(echo "$FETCH" | jq '.message | .sticker | .file_id')
-        STICKER_PACK_NAME=$(echo "$FETCH" | jq '.message | .sticker | .set_name')
+        STICKER_FILE_ID=$(echo "$FETCH" | jq -r '.message | .sticker | .file_id')
+        STICKER_PACK_NAME=$(echo "$FETCH" | jq -r '.message | .sticker | .set_name')
     fi
 }
