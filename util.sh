@@ -90,22 +90,22 @@ update() {
     if [ $UPDATE_ID -gt $PREV_UPDATE_ID ]; then
         # IDs
         PREV_UPDATE_ID=$UPDATE_ID
-        RET_MSG_ID=$(echo "$FETCH" | jq '.message | .message_id')
-        RET_CHAT_ID=$(echo "$FETCH" | jq '.message | .chat | .id')
-        MSGGER=$(echo "$FETCH" | jq '.message | .from | .id')
+        RET_MSG_ID=$(echo "$FETCH" | jq '.message.message_id')
+        RET_CHAT_ID=$(echo "$FETCH" | jq '.message.chat.id')
+        MSGGER=$(echo "$FETCH" | jq '.message.from.id')
 
         # Strings
-        RET_MSG_TEXT=$(echo "$FETCH" | jq -r '.message | .text')
-        FIRST_NAME=$(echo "$FETCH" | jq -r '.message | .first_name')
-        USERNAME=$(echo "$FETCH" | jq -r '.message | .username')
+        RET_MSG_TEXT=$(echo "$FETCH" | jq -r '.message.text')
+        FIRST_NAME=$(echo "$FETCH" | jq -r '.message.first_name')
+        USERNAME=$(echo "$FETCH" | jq -r '.message.username')
 
         # Replies
-        RET_REPLIED_MSG_ID=$(echo "$FETCH" | jq '.message | .reply_to_message | .message_id')
-        RET_REPLIED_MSG_CHAT_ID=$(echo "$FETCH" | jq '.message | .reply_to_message | .from | .id')
+        RET_REPLIED_MSG_ID=$(echo "$FETCH" | jq '.message.reply_to_message.message_id')
+        RET_REPLIED_MSG_CHAT_ID=$(echo "$FETCH" | jq '.message.reply_to_message.from.id')
 
         # Stickers
-        STICKER_EMOJI=$(echo "$FETCH" | jq -r '.message | .sticker | .emoji')
-        STICKER_FILE_ID=$(echo "$FETCH" | jq -r '.message | .sticker | .file_id')
-        STICKER_PACK_NAME=$(echo "$FETCH" | jq -r '.message | .sticker | .set_name')
+        STICKER_EMOJI=$(echo "$FETCH" | jq -r '.message.sticker.emoji')
+        STICKER_FILE_ID=$(echo "$FETCH" | jq -r '.message.sticker.file_id')
+        STICKER_PACK_NAME=$(echo "$FETCH" | jq -r '.message.sticker.set_name')
     fi
 }
