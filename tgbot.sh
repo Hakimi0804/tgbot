@@ -47,6 +47,11 @@ while true; do
             tg --editmarkdownv2msg "$RET_CHAT_ID" "$SENT_MSG_ID" "[Latest stable]($LATEST_STABLE)
 [Latest canary]($CANARY)"
             ;;
+        '.neofetch'*)
+            tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "This may take a while with shitload packages installed in this lappy..."
+            NEOFETCH_OUTPUT=$(neofetch --stdout)
+            tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "$NEOFETCH_OUTPUT"
+            ;;
 
         ## Prototypes
         '.fwdpost')
