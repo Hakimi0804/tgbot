@@ -116,6 +116,12 @@ taking logs"
         ## Funs / Miscs
         *sex*) tg --replysticker "$RET_CHAT_ID" "$RET_MSG_ID" "CAACAgUAAxkBAAED-qJiE3HljFCcMMJOY9e12JvDnvk7mAACCAgAAvNoIFQU9d93MQ1XZSME";;
         *t[ea]st[eu]r*mo[ra][er]*p*ro*than*dev*) tg --replysticker "$RET_CHAT_ID" "$RET_MSG_ID" "CAACAgQAAxkBAAED9_FiEMXeRur9aLMvyNnkj02cZew2ggACpAEAAsIupRbTkf08grqV_SME";;
+        *'@hakimi0804'*)
+            tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Saving this msg lenk for hakimi to read later"
+            REPLY_MSG_ID=$SENT_MSG_ID
+            tg --sendmsg "$TAGGER_GROUP_ID" "New tag: https://t.me/c/${RET_CHAT_ID#-100}/$RET_MSG_ID"
+            tg --delmsg "$RET_CHAT_ID" "$REPLY_MSG_ID"
+            ;;
     esac
 
     unset RET_MSG_TEXT RET_REPLIED_MSG_ID
