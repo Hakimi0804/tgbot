@@ -87,7 +87,7 @@ update() {
     UPDATE_ID=$(echo "$FETCH" | jq '.update_id')
     [ -z "$PREV_UPDATE_ID" ] && PREV_UPDATE_ID=$UPDATE_ID
 
-    if [ $UPDATE_ID -gt $PREV_UPDATE_ID ]; then
+    if [[ $UPDATE_ID -gt $PREV_UPDATE_ID ]]; then
         # IDs
         PREV_UPDATE_ID=$UPDATE_ID
         RET_MSG_ID=$(echo "$FETCH" | jq '.message.message_id')
