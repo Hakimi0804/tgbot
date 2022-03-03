@@ -25,7 +25,7 @@ load_modules() {
 		source "$module"
 		LOADED_MODULES+=("$module")
 	done
-	[[ -n "${LOADED_MODULES[*]}" ]] && echo -e "LOADED: ${LOADED_MODULES[@]}\n"
+	[[ -n "${LOADED_MODULES[*]}" ]] && echo -e "LOADED: ${LOADED_MODULES[*]}\n"
 }
 
 run_modules() {
