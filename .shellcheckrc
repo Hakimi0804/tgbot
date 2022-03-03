@@ -1,0 +1,8 @@
+## shellcheck configs for tgbot
+disable=SC2034,SC2155,SC2076,SC1090,SC2185
+source-dir=modules
+# SC2076: Remove quotes from right-hand side of =~ to match as a regex rather than literally.   # If it works, it works.
+# SC2034: VAR_NAME appears unused. Verify use (or export if used externally).                   # stfu main script need this, you're sourced
+# SC2155: Declare and assign separately to avoid masking return values.                         # As if i need the return value
+# SC1090: ShellCheck can't follow non-constant source. Use a directive to specify location.     # My man I've set source-dir up there yet you still can't stfu
+# SC2185: Some finds don't have a default path. Specify '.' explicitly.                         # Must be old as heck to not have '.' as default path
