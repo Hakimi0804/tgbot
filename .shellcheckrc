@@ -1,6 +1,8 @@
 ## shellcheck configs for tgbot
 disable=SC2034,SC2155,SC2076,SC1090,SC2185
 source-dir=modules
+
+external-sources=true # For VSCode ShellCheck extension. lint.sh already specified -x
 # SC2076: Remove quotes from right-hand side of =~ to match as a regex rather than literally.   # If it works, it works.
 # SC2034: VAR_NAME appears unused. Verify use (or export if used externally).                   # stfu main script need this, you're sourced
 # SC2155: Declare and assign separately to avoid masking return values.                         # As if i need the return value
