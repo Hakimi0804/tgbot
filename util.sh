@@ -101,7 +101,7 @@ update() {
 
 		# Replies
 		RET_REPLIED_MSG_ID=$(echo "$FETCH" | jq '.message.reply_to_message.message_id')
-		RET_REPLIED_MSG_CHAT_ID=$(echo "$FETCH" | jq '.message.reply_to_message.from.id')
+		RET_REPLIED_MSGGER_ID=$(echo "$FETCH" | jq '.message.reply_to_message.from.id')
 		RET_REPLIED_MSG_TEXT=$(echo "$FETCH" | jq -r '.message.reply_to_message.text')
 
 		# Stickers
