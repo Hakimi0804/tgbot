@@ -3,6 +3,7 @@
 modules_load_unload() {
 	case $RET_LOWERED_MSG_TEXT in
 	'.unload'*)
+		if ! is_botowner; then err_not_botowner; return; fi
 		local _MODULE_NAME=${RET_LOWERED_MSG_TEXT#.unload }
 		local _MODULE_NAME=${_MODULE_NAME#modules/}
 		unset "${_MODULE_NAME#.sh}" || {
@@ -25,6 +26,7 @@ modules_load_unload() {
 		LOADED_MODULES=("${_NEW_LOADED_MODULES[@]}")
 		;;
 	'.load'*)
+		if ! is_botowner; then err_not_botowner; return; fi
 		local _MODULE_NAME=${RET_LOWERED_MSG_TEXT#.load }
 		for module in "${LOADED_MODULES[@]}"; do
 			if [ "$_MODULE_NAME" = "$module" ]; then

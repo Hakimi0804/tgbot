@@ -110,3 +110,12 @@ update() {
 		STICKER_PACK_NAME=$(echo "$FETCH" | jq -r '.message.sticker.set_name')
 	fi
 }
+
+is_botowner() {
+	[ "$MSGGER" = "$BOT_OWNER_ID" ] && return 0
+	return 1
+}
+
+err_not_botowner() {
+	tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "You are not allowed to use this command."
+}
