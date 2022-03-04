@@ -79,6 +79,18 @@ tg() {
 		fi
 		curl "$API/$MODE" -d "from_chat_id=$FROM" -d "chat_id=$TO" -d "message_id=$MSG_ID"
 		;;
+	--pinmsg)
+		shift
+		local CHAT_ID=$1
+		local MSG_ID=$2
+		curl "$API/pinChatMessage" -d "chat_id=$CHAT_ID" -d "message_id=$MSG_ID"
+		;;
+	--unpinmsg)
+		shift
+		local CHAT_ID=$1
+		local MSG_ID=$2
+		curl "$API/unpinChatMessage" -d "chat_id=$CHAT_ID" -d "message_id=$MSG_ID"
+		;;
 	esac
 }
 
