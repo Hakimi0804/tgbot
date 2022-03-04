@@ -1,5 +1,7 @@
 #!/bin/bash
 
+clear
+
 ## Sourcing stuffs (Our functions, extra functions ans aliases, etc)
 source util.sh
 source extra.sh
