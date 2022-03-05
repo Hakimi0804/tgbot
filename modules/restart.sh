@@ -25,7 +25,7 @@ restart() {
 			_LOADED_MODULES="$_LOADED_MODULES${n}\\\`- ${module/\./\\\.}\`"
 		done
 		echo "$_LOADED_MODULES"
-		tg --editmarkdownv2msg "$RET_CHAT_ID" "$SENT_MSG_ID" "Modules reloaded, loaded modules:$_LOADED_MODULES"
+		tg --editmarkdownv2msg "$RET_CHAT_ID" "$SENT_MSG_ID" "Modules reloaded, loaded modules:${_LOADED_MODULES/-/\\\.}"
 		;;
 	esac
 }
