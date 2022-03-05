@@ -105,6 +105,7 @@ update() {
 		RET_MSG_ID=$(echo "$FETCH" | jq '.message.message_id')
 		RET_CHAT_ID=$(echo "$FETCH" | jq '.message.chat.id')
 		MSGGER=$(echo "$FETCH" | jq '.message.from.id')
+		RET_FILE_ID=$(echo "$FETCH" | jq -r '.message.document.file_id')
 
 		# Strings
 		RET_MSG_TEXT=$(echo "$FETCH" | jq -r '.message.text')
@@ -115,6 +116,7 @@ update() {
 		RET_REPLIED_MSG_ID=$(echo "$FETCH" | jq '.message.reply_to_message.message_id')
 		RET_REPLIED_MSGGER_ID=$(echo "$FETCH" | jq '.message.reply_to_message.from.id')
 		RET_REPLIED_MSG_TEXT=$(echo "$FETCH" | jq -r '.message.reply_to_message.text')
+		RET_REPLIED_FILE_ID=$(echo "$FETCH" | jq -r '.message.reply_to_message.document.file_id')
 
 		# Stickers
 		STICKER_EMOJI=$(echo "$FETCH" | jq -r '.message.sticker.emoji')
