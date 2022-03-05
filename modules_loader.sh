@@ -11,6 +11,7 @@ load_modules() {
 	MODULES_EXCLUDE=(
 		# An array of modules to be excluded,
 		# can be used for debugging or temporary disablement.
+		"modules/hakimi_afk.sh"
 	)
 
 	unset LOADED_MODULES
