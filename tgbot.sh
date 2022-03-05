@@ -59,18 +59,6 @@ while true; do
 		NEOFETCH_OUTPUT=$(neofetch --stdout)
 		tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "$NEOFETCH_OUTPUT"
 		;;
-	'.log')
-		tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Checking"
-		if adb get-state; then
-			tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "kewl, device is connected
-taking logs"
-			echo "channel_id=$RET_CHAT_ID" >>"$HOME/bin/common.sh"
-			logcat
-			sed -i "/channel_id=$RET_CHAT_ID/d" "$HOME/bin/common.sh"
-		else
-			tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "bc phone is not connected"
-		fi
-		;;
 
 		## Prototypes
 	'.fwdpost')
