@@ -3,7 +3,9 @@
 rm6785_post() {
 	case $RET_LOWERED_MSG_TEXT in
 	'.sticker'*)
+		tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Hold on..."
 		tg --sendsticker "$FWD_TO" "$RM6785_UPDATE_STICKER"
+		tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "Sticker sent"
 		;;
 	'.post'*)
 		if [ "$RET_REPLIED_MSG_ID" = "null" ]; then
