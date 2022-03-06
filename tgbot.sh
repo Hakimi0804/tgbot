@@ -61,8 +61,8 @@ while true; do
 		;;
     '.ofp'*)
         export PATH=$HOME/.local/bin:$PATH
-        TRIMMED=${RET_MSG_TEXT#.ofp}
-        bash ofp.sh $TRIMMED
+        TRIMMED=${RET_MSG_TEXT#.ofp }
+        bash ofp.sh $TRIMMED || tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Invalid device"
         text=$(cat temp.txt)
         tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "$text"
         rm temp.txt
