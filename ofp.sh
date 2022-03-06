@@ -2,6 +2,12 @@
 ##Make sure you have gdown & xlsx2csv installed
 ##Install by <pip install gdown && pip install xlsx2csv>
 
+[ "$(wc -m <<< "$1")" -ne 8  ] && {
+	rm *.csv
+	rm *.*xlsx
+	exit 1
+}
+
 #Download sheet which contains ofp links.
 gdown "$OFP_SHEET" # This var refers to a secret in .token.sh
 
