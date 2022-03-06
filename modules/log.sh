@@ -1,6 +1,7 @@
 #!/bin/bash
 
 log() {
+	_scrub_gist
 	case $RET_LOWERED_MSG_TEXT in
 	'.log'*)
 		if ! is_botowner; then err_not_botowner; return; fi
@@ -19,8 +20,15 @@ log() {
 
 n=$'\n'
 
+_log_editmsg_editor() {
+	local CHAT_ID=$1
+	local MSG_ID=$2
+	local TEXT=$3
+	curl -s "$API/editMessageText" -d "chat_id=$CHAT_ID" -d "message_id=$MSG_ID" -d "text=$TEXT" -d "parse_mode=markdownv2" -d "disable_web_page_preview=true"
+}
+
 _log_editmsg() {
-	tg --editmarkdownv2msg "$RET_CHAT_ID" "$SENT_MSG_ID" "${_LOG_PROGRESS[*]# }"
+	_log_editmsg_editor "$RET_CHAT_ID" "$SENT_MSG_ID" "${_LOG_PROGRESS[*]# }"
 }
 
 _log_date() {
@@ -64,10 +72,10 @@ _log_for_five_sec() {
 
 _log_link() {
 	local _FILE_PATH=$1
-	_LOG_PROGRESS+=("\`$(_log_date)\` \\- Generating termbin link$n"); _log_editmsg
-	local _LOG_URL=$(nc termbin.com 9999 < "$_FILE_PATH")
-	_LOG_PROGRESS+=("\`$(_log_date)\` \\- termbin link: ${_LOG_URL/\./\\\.}$n"); _log_editmsg
-	echo "DEBUG: ${_LOG_PROGRESS[*]}"
+	_LOG_PROGRESS+=("\`$(_log_date)\` \\- Creating gist$n"); _log_editmsg
+	local _LOG_URL=$(gh gist create < "$_FILE_PATH" | tail -n1)
+	_LOG_PROGRESS+=("\`$(_log_date)\` \\- gist link: ${_LOG_URL//\./\\\.}$n"); _log_editmsg
+	echo "$_LOG_URL" >> ~/.gist_markers # Once lines exceed 30, we need to delete old gist
 }
 
 _log_purge() {
@@ -75,4 +83,15 @@ _log_purge() {
 	_LOG_PROGRESS+=("\`$(_log_date)\` \\- Purging AutoPasteSuggestionHelper \\(contains clipboard content\\)$n"); _log_editmsg
 	sed -i '/AutoPasteSuggestionHelper/d' "$_FILE_PATH"
 	_log_upload "$_FILE_PATH"
+}
+
+_scrub_gist() {
+	# Count lines of ~/.gist_markers
+	local _GIST_COUNT=$(wc -l < ~/.gist_markers)
+	# If lines exceed 30, delete oldest gist
+	if [ "$_GIST_COUNT" -gt 30 ]; then
+		local _OLDEST_GIST=$(head -n1 ~/.gist_markers)
+		gh gist delete "$_OLDEST_GIST"
+		sed -i '1d' ~/.gist_markers
+	fi
 }
