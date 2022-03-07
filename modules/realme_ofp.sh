@@ -3,17 +3,19 @@
 realme_ofp() {
 	case $RET_LOWERED_MSG_TEXT in
 	'.ofp'*)
-		tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Please wait..."
-		_realme_ofp_handler ${RET_MSG_TEXT#.ofp } || {
-			tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "Invalid device"
-			return
-		}
-		[ -z "$_REALME_OFP_LINK" ] && {
-			tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "Function returned empty var. Version/region not available or invalid device?"
-			return
-		}
-		_realme_ofp_editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "$_REALME_OFP_LINK"
-		unset _REALME_OFP_LINK
+		(
+			tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Please wait..."
+			_realme_ofp_handler ${RET_MSG_TEXT#.ofp } || {
+				tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "Invalid device"
+				return
+			}
+			[ -z "$_REALME_OFP_LINK" ] && {
+				tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "Function returned empty var. Version/region not available or invalid device?"
+				return
+			}
+			_realme_ofp_editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "$_REALME_OFP_LINK"
+			unset _REALME_OFP_LINK
+		) &
 		;;
 	esac
 }
