@@ -3,7 +3,6 @@
 realme_ofp() {
 	case $RET_LOWERED_MSG_TEXT in
 	'.ofp'*)
-		echo "DEBUG: ofp triggered"
 		tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Please wait..."
 		_realme_ofp_handler ${RET_MSG_TEXT#.ofp } || {
 			tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "Invalid device"
@@ -15,7 +14,6 @@ realme_ofp() {
 		}
 		_realme_ofp_editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "$_REALME_OFP_LINK"
 		unset _REALME_OFP_LINK
-		echo "DEBUG: Done processing ofp"
 		;;
 	esac
 }
@@ -36,7 +34,6 @@ _realme_ofp_handler() {
 	rm *.csv
 	rm *.*xlsx
 	rm temp.txt
-	echo "DEBUG: function return 0"
 	return 0
 }
 
@@ -44,6 +41,5 @@ _realme_ofp_editmsg() {
 	local CHAT_ID=$1
 	local MSG_ID=$2
 	local TEXT=$3
-	echo "DEBUG: editing"
 	curl -s "$API/editMessageText" -F "chat_id=$CHAT_ID" -F "message_id=$MSG_ID" -F "text=$TEXT" | jq .
 }
