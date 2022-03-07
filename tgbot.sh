@@ -59,14 +59,6 @@ while true; do
 		NEOFETCH_OUTPUT=$(neofetch --stdout)
 		tg --editmsg "$RET_CHAT_ID" "$SENT_MSG_ID" "$NEOFETCH_OUTPUT"
 		;;
-    '.ofp'*)
-        export PATH=$HOME/.local/bin:$PATH
-        TRIMMED=${RET_MSG_TEXT#.ofp }
-        bash ofp.sh $TRIMMED || tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Invalid device"
-        text=$(cat temp.txt)
-        tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "$text"
-        rm temp.txt
-        ;;
 
 		## Prototypes
 	'.fwdpost')
