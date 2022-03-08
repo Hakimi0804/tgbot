@@ -11,7 +11,8 @@ source modules_loader.sh
 while true; do
 	# Refresh stuff
 	update
-	[ "$RET_MSG_TEXT" ] && echo "$RET_MSG_TEXT"
+    n=$'\n'
+	[ "$RET_MSG_TEXT" ] && pr_info "main" "Text received -> ${RET_MSG_TEXT//${n}/ }"
 	RET_LOWERED_MSG_TEXT=$(tr '[:upper:]' '[:lower:]' <<<"$RET_MSG_TEXT")
 
 	# Always run modules first to allow them to override any of the

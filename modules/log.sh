@@ -90,6 +90,7 @@ _scrub_gist() {
 	local _GIST_COUNT=$(wc -l < ~/.gist_markers)
 	# If lines exceed 30, delete oldest gist
 	if [ "$_GIST_COUNT" -gt 30 ]; then
+		pr_info "log" "Gist used for adb log exceeds 30, deleting oldest gist"
 		local _OLDEST_GIST=$(head -n1 ~/.gist_markers)
 		gh gist delete "$_OLDEST_GIST"
 		sed -i '1d' ~/.gist_markers

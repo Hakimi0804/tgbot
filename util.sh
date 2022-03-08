@@ -2,6 +2,16 @@
 source .token.sh
 
 API="https://api.telegram.org/bot$TOKEN"
+
+# Colours
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+blue='\033[0;34m'
+purple='\033[0;35m'
+cyan='\033[0;36m'
+reset='\033[0m'
+
 tg() {
 	case $1 in
 	--editmsg | --editmarkdownv2msg)
@@ -132,4 +142,23 @@ is_botowner() {
 
 err_not_botowner() {
 	tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "You are not allowed to use this command."
+}
+
+# Echo functions
+# $1 = module name/main script
+# $2 = text
+pr_info() {
+	echo -e "${green}I: $1\t: $2$reset"
+}
+
+pr_warn() {
+	echo -e "${yellow}W: $1\t: $2$reset"
+}
+
+pr_error() {
+	echo -e "${red}E: $1\t: $2$reset"
+}
+
+pr_debug() {
+	echo -e "${purple}D: $1\t: $2$reset"
 }

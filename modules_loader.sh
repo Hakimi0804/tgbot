@@ -18,15 +18,15 @@ load_modules() {
 	for module in $MODULES; do
 		for exclude_module in "${MODULES_EXCLUDE[@]}"; do
 			if [ "$module" = "$exclude_module" ]; then
-				echo "SKIP MODULE: $module"
+				pr_info "modules_loader" "SKIP MODULE: $module"
 				continue 2
 			fi
 		done
-		echo "LOAD MODULE: $module"
+		pr_info "modules_loader" "LOAD MODULE: $module"
 		source "$module"
 		LOADED_MODULES+=("$module")
 	done
-	[[ -n "${LOADED_MODULES[*]}" ]] && echo -e "LOADED: ${LOADED_MODULES[*]}\n"
+	[[ -n "${LOADED_MODULES[*]}" ]] && pr_info "modules_loader" "LOADED: ${LOADED_MODULES[*]}\n"
 }
 
 run_modules() {
@@ -38,4 +38,4 @@ run_modules() {
 }
 
 load_modules
-trap 'echo -e "\nReloading modules"; load_modules' SIGINT
+trap 'pr_info "modules_loader" "Reloading modules"; load_modules' SIGINT
