@@ -129,6 +129,9 @@ while true; do
 		tg --sendmsg "$TAGGER_GROUP_ID" "New tag: https://t.me/c/${RET_CHAT_ID#-100}/$RET_MSG_ID"
 		tg --delmsg "$RET_CHAT_ID" "$REPLY_MSG_ID"
 		;;
+    '/gay'*)
+        tg --replymsg "$RET_CHAT_ID" "$RET_CHAT_ID" "You are $(shuf -i 0-100 -n1)% gay"
+        ;;
 	esac
 
 	unset RET_MSG_TEXT RET_REPLIED_MSG_ID
