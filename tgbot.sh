@@ -11,7 +11,7 @@ source modules_loader.sh
 while true; do
 	# Refresh stuff
 	update
-    n=$'\n'
+	n=$'\n'
 	[ "$RET_MSG_TEXT" ] && pr_info "main" "Text received -> ${RET_MSG_TEXT//${n}/ }"
 	RET_LOWERED_MSG_TEXT=$(tr '[:upper:]' '[:lower:]' <<<"$RET_MSG_TEXT")
 
@@ -23,21 +23,21 @@ while true; do
 	## Not so useful
 	'/test'*) tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "BOT is running" ;;
 	'.help'* | '/help'*)
-		tg --replymarkdownv2msg "$RET_CHAT_ID" "$RET_MSG_ID" "\`.calc\` \\-\\> Do math calculations
-\`.magisk\` \\-\\> Get latest magisk stable and canary
-\`.fwdpost\` \\-\\> \\(deprecated\\) Forward post to @RM6785 \\(this command is restricted to testing group\\)
-\`.postupdatesticker\` \\(deprecated\\) \\-\\> Post update sticker to @RM6785 \\(this command is restricted to testing group\\)
-\`.sticker\` \\-\\> Post update sticker to @RM6785
-\`.post\` \\-\\> Post ROM/recovery to update channel, syntax: \`\\.post \\<replying to a message\\>\`
-\`.save\` \\(bot owner only\\) \\-\\> Save message
-\`.log\` \\(bot owner only\\) \\-\\> Take logs, available type: all, normal, radio
-\`.ofp\` \\-\\> Get ofp for a device, syntax: \`.ofp RMX6969 C.69 IN\`
-\`.stat\` \\-\\> View stat
-\`.uptime\` \\-\\> View this laptop uptime
-\`.restart\` \\(bot owner only\\) \\-\\> Restart the bot
-\`.reload\` \\(bot owner only\\) \\-\\> Reload all modules
-\`.load\` \\(bot owner only\\) \\-\\> Load a module, syntax: \`\\.load modules/gay\\.sh\`
-\`.unload\` \\(bot owner only\\) \\-\\> Unload a module, syntax: \`\\.unload modules/gay\\.sh\`"
+		tg --replymarkdownv2msg "$RET_CHAT_ID" "$RET_MSG_ID" '`.calc` \-\> Do math calculations
+`.magisk` \-\> Get latest magisk stable and canary
+`.fwdpost` \-\> \(deprecated\) Forward post to @RM6785 \(this command is restricted to testing group\)
+`.postupdatesticker` \(deprecated\) \-\> Post update sticker to @RM6785 \(this command is restricted to testing group\)
+`.sticker` \-\> Post update sticker to @RM6785
+`.post` \-\> Post ROM/recovery to update channel, syntax: `\.post \<replying to a message\>`
+`.save` \(bot owner only\) \-\> Save message
+`.log` \(bot owner only\) \-\> Take logs, available type: all, normal, radio
+`.ofp` \-\> Get ofp for a device, syntax: `.ofp RMX6969 C.69 IN`
+`.stat` \-\> View stat
+`.uptime` \-\> View this laptop uptime
+`.restart` \(bot owner only\) \-\> Restart the bot
+`.reload` \(bot owner only\) \-\> Reload all modules
+`.load` \(bot owner only\) \-\> Load a module, syntax: `\.load modules/gay\.sh`
+`.unload` \(bot owner only\) \-\> Unload a module, syntax: `\.unload modules/gay\.sh`'
 		;;
 
 		## Useful utilities
@@ -129,9 +129,9 @@ while true; do
 		tg --sendmsg "$TAGGER_GROUP_ID" "New tag: https://t.me/c/${RET_CHAT_ID#-100}/$RET_MSG_ID"
 		tg --delmsg "$RET_CHAT_ID" "$REPLY_MSG_ID"
 		;;
-    '/gay'*)
-        tg --replymsg "$RET_CHAT_ID" "$RET_CHAT_ID" "You are $(shuf -i 0-100 -n1)% gay"
-        ;;
+	'/gay'*)
+		tg --replymsg "$RET_CHAT_ID" "$RET_CHAT_ID" "You are $(shuf -i 0-100 -n1)% gay"
+		;;
 	esac
 
 	unset RET_MSG_TEXT RET_REPLIED_MSG_ID

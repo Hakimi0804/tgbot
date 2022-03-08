@@ -22,13 +22,13 @@ realme_ofp() {
 
 _realme_ofp_handler() {
 	export PATH=$HOME/.local/bin:$PATH
-	if [ "$(wc -c <<< "$1")" -ne 8 ]; then
+	if [ "$(wc -c <<<"$1")" -ne 8 ]; then
 		rm *.csv
 		rm *.*xlsx
 		return 1
 	fi
 	gdown "$OFP_SHEET" # This var refers to a secret in .token.sh
-	xlsx2csv "Software update summary form新版软件汇总表.xlsx" > ofp.csv
+	xlsx2csv "Software update summary form新版软件汇总表.xlsx" >ofp.csv
 	touch temp.txt
 	grep "${1}.*${2}" ofp.csv | grep ".${3}." | egrep -o "(rms01|https).*[a-z]" >temp.txt
 	sed -i "s/\n/\n\n/" temp.txt
