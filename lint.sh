@@ -18,6 +18,6 @@ read -n1 -t5 -r -p "Proceed with shfmt?[y/N]: " SHFMT_PROMPT
 	echo
 	for script in $SCRIPTS; do
 		pr_blue "LINT (SHFMT): $script"
-		shfmt -w "$script"
+		shfmt -s -w "$script"
 	done
 }
