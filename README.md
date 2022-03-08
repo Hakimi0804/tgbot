@@ -11,6 +11,7 @@ tgbot.sh            # Brain of the bot, main while loop resides here
 util.sh             # Utility functions, such as tg(), update(), more functions may be added later
 extra.sh            # Extra functions that doesn't really fit util.sh
 modules_loader.sh   # Loads modules from modules folder
+lint.sh             # Lint through shellcheck and shfmt
 
 # Folders
 modules             # Where modules resides, will be loaded by modules_loader.sh
@@ -71,4 +72,12 @@ module_name() {
             ;;
     esac
 }
+```
+
+### lint.sh
+---
+- Lint all *.sh through [shellcheck](https://github.com/koalaman/shellcheck) and [shfmt](https://github.com/mvdan/sh#shfmt)
+- Usage:
+```bash
+./lint.sh
 ```
