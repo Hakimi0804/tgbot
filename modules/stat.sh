@@ -19,7 +19,11 @@ stat() {
 		tg --replymarkdownv2msg "$RET_CHAT_ID" "$RET_MSG_ID" "$STATUS"
 		;;
 	'.modules'*)
-		tg --replymarkdownv2msg "$RET_CHAT_ID" "$RET_MSG_ID" "\`${LOADED_MODULES[*]}\`"
+		local _LOADED_MODULES
+		for module in "${LOADED_MODULES[@]}"; do
+			_LOADED_MODULES="$_LOADED_MODULES${n}\`\\- ${module/\./\\\.}\`"
+		done
+		tg --replymarkdownv2msg "$RET_CHAT_ID" "$RET_MSG_ID" "${_LOADED_MODULES}"
 		;;
 	esac
 }
