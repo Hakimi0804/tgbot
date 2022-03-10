@@ -7,21 +7,26 @@ modules_load_unload() {
 			err_not_botowner
 			return
 		fi
+		pr_info "modules_load_unload" "Unloading module: ${RET_LOWERED_MSG_TEXT#.unload }"
 		local _MODULE_NAME=${RET_LOWERED_MSG_TEXT#.unload }
 		local _MODULE_NAME=${_MODULE_NAME#modules/}
-		unset "${_MODULE_NAME#.sh}" || {
+		declare -F "${_MODULE_NAME%.sh}" || {
+			pr_error "modules_load_unload" "Failed to unload module: ${RET_LOWERED_MSG_TEXT#.unload }, module does not exist"
 			tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "Failed to unload module, you sure you typed it correctly?"
 			return
 		}
+		unset "${_MODULE_NAME%.sh}"
 		tg --replymsg "$RET_CHAT_ID" "$RET_MSG_ID" "module $_MODULE_NAME unloaded"
-
+		
 		# Also remove it from ${LOADED_MODULES[@]}
+		local iteration=0
 		for loaded_mod in "${LOADED_MODULES[@]}"; do
-			local iteration=0
-			if [ "modules/${_MODULE_NAME}.sh" = "$loaded_mod" ]; then
+			if [ "modules/${_MODULE_NAME%.sh}.sh" = "$loaded_mod" ]; then
 				unset "LOADED_MODULES[$iteration]"
 				unset iteration
+				break
 			fi
+			((iteration++))
 		done
 		for loaded_mod in "${LOADED_MODULES[@]}"; do
 			local _NEW_LOADED_MODULES+=("$loaded_mod")
