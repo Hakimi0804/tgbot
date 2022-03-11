@@ -12,11 +12,9 @@ log() {
 		rm -f "$HOME/logs/adb_logcat.txt"
 		rm -f "$HOME/logs/adb_logcat_all.txt"
 		rm -f "$HOME/logs/adb_logcat_radio.txt"
-		kill "$_PREV_LOG_PID" 2>/dev/null
 		(
 			_log_for_five_sec "$_LOG_TYPE"
 		) & # Do in background, subshell to avoid changes in in vars by other commands to affect this process
-		_PREV_LOG_PID=$!
 		;;
 	esac
 }
