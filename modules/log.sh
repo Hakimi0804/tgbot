@@ -4,15 +4,16 @@ log() {
 	_scrub_gist
 	case $RET_LOWERED_MSG_TEXT in
 	'.log'*)
-		if ! is_botowner; then
-			err_not_botowner
-			return
-		fi
-		local _LOG_TYPE=${RET_MSG_TEXT#.log }
-		rm -f "$HOME/logs/adb_logcat.txt"
-		rm -f "$HOME/logs/adb_logcat_all.txt"
-		rm -f "$HOME/logs/adb_logcat_radio.txt"
 		(
+			if ! is_botowner; then
+				err_not_botowner
+				return
+			fi
+			local _LOG_TYPE=${RET_MSG_TEXT#.log }
+			rm -f "$HOME/logs/adb_logcat.txt"
+			rm -f "$HOME/logs/adb_logcat_all.txt"
+			rm -f "$HOME/logs/adb_logcat_radio.txt"
+
 			_log_for_five_sec "$_LOG_TYPE"
 		) & # Do in background, subshell to avoid changes in in vars by other commands to affect this process
 		;;
