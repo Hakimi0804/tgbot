@@ -146,7 +146,7 @@ update() {
 
 update_init() {
 	# Get initial update ID
-	UPDATE_ID=$(($(curl -s "$API/getUpdates" -d "offset=-1" -d "timeout=60" | jq '.result[].update_id') + 1))
+	UPDATE_ID=$(curl -s "$API/getUpdates" -d "offset=-1" -d "timeout=60" | jq '.result[].update_id')
 }
 
 is_botowner() {
