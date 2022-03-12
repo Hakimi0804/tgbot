@@ -105,13 +105,12 @@ tg() {
 }
 
 update() {
-	FETCH=$(curl -s "$API/getUpdates" -d "offset=-1" -d "timeout=60" | jq '.result[]')
-	UPDATE_ID=$(echo "$FETCH" | jq '.update_id')
-	[ -z "$PREV_UPDATE_ID" ] && PREV_UPDATE_ID=$UPDATE_ID
+	pr_debug "util" "Polling for updates... timeout: 60s"
+	FETCH=$(curl -s "$API/getUpdates" -d "offset=$UPDATE_ID" -d "timeout=60" | jq '.result[]')
+	if [ -n "$FETCH" ]; then
+		UPDATE_ID=$((UPDATE_ID + 1))
 
-	if [[ $UPDATE_ID -gt $PREV_UPDATE_ID ]]; then
 		# IDs
-		PREV_UPDATE_ID=$UPDATE_ID
 		RET_MSG_ID=$(echo "$FETCH" | jq '.message.message_id')
 		RET_CHAT_ID=$(echo "$FETCH" | jq '.message.chat.id')
 		MSGGER=$(echo "$FETCH" | jq '.message.from.id')
@@ -133,6 +132,11 @@ update() {
 		STICKER_FILE_ID=$(echo "$FETCH" | jq -r '.message.sticker.file_id')
 		STICKER_PACK_NAME=$(echo "$FETCH" | jq -r '.message.sticker.set_name')
 	fi
+}
+
+update_init() {
+	# Get initial update ID
+	UPDATE_ID=$(($(curl -s "$API/getUpdates" -d "offset=-1" -d "timeout=60" | jq '.result[].update_id') + 1))
 }
 
 is_botowner() {

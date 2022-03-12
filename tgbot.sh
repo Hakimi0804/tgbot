@@ -7,6 +7,7 @@ source util.sh
 source extra.sh
 source modules_loader.sh
 
+update_init # Get initial update ID, do not omit this
 ## While loop
 while true; do
 	# Refresh stuff
