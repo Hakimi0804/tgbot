@@ -12,6 +12,16 @@ purple='\033[0;35m'
 cyan='\033[0;36m'
 reset='\033[0m'
 
+exit_handler() {
+	pr_warn "util" "Sigterm received"
+	pr_warn "util" "Killing all jobs"
+	for job in $(jobs -p); do
+		kill "$job"
+	done
+	pr_warn "util" "Exiting"
+	exit 0
+}
+trap 'exit_handler' EXIT
 tg() {
 	case $1 in
 	--editmsg | --editmarkdownv2msg)
